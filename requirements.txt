@@ -1,0 +1,6 @@
+yt-dlp
+opencv-python
+numpy
+ultralytics
+pandas
+shapely
