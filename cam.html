@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seattle DOT HLS Viewer</title>
+</head>
+<body>
+  <h1>Seattle DOT Camera</h1>
+  <video id="video" width="640" height="360" controls autoplay muted></video>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const streamURL = '
+https://61e0c5d388c2e.streamlock.net/live/3_Spring_EW.stream/chunklist_w822778895.m3u8'; // Replace with your cam ID
+
+    if(Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(streamURL);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamURL;
+      video.addEventListener('loadedmetadata', function() {
+        video.play();
+      });
+    }
+  </script>
+</body>
+</html>
